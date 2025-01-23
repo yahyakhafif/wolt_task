@@ -27,8 +27,8 @@ def response():
         user_lon = request.args.get("user_lon", type=float)
 
         # checking if all values are provided
-        if not all([venue_slug, cart_value, user_lat, user_lon]):
-            return jsonify({"error": "Missing required parameters"}), 400
+        if not all([venue_slug, cart_value, user_lat, user_lon]) or cart_value < 0:
+            return jsonify({"error": "missing required parameters or invalid parameter"}), 400
 
         # fetching the home assignment api
         static_home_assignment_api = f"https://consumer-api.development.dev.woltapi.com/home-assignment-api/v1/venues/{venue_slug}/static"
@@ -52,6 +52,7 @@ def response():
             venue_lon = venue_static_data['venue_raw']['location']['coordinates'][0]
             order_minimum_no_surcharge = venue_dynamic_data["venue_raw"]["delivery_specs"]["order_minimum_no_surcharge"]
             base_price = venue_dynamic_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["base_price"]
+            print(base_price)
             distance_ranges = venue_dynamic_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["distance_ranges"]
             
         except KeyError as e:
