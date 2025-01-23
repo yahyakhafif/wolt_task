@@ -1,5 +1,5 @@
-from functions import small_order_surcharge, delivery_distance, delivery_fee, total_price
-from main import app
+from services import small_order_surcharge, delivery_distance, delivery_fee, total_price
+from app import app
 
 base_url = "/api/v1/delivery-order-price"
 

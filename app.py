@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from functions import total_price, small_order_surcharge, delivery_fee, delivery_distance
+from services import total_price, small_order_surcharge, delivery_fee, delivery_distance
 import requests, traceback
 
 app = Flask(__name__)
