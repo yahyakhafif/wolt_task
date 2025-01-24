@@ -43,17 +43,16 @@ def response():
         except requests.exceptions.RequestException as e:
             return jsonify({"error": f"Error fetching API data: {str(e)}"}), 400
 
-        venue_static_data = static_response.json()
-        venue_dynamic_data = dynamic_response.json()
+        static_home_assignment_api_data = static_response.json()
+        dynamic_home_assignment_data = dynamic_response.json()
 
         # extracting relevant data from the home assignment api response
         try:
-            venue_lat = venue_static_data['venue_raw']['location']['coordinates'][1]
-            venue_lon = venue_static_data['venue_raw']['location']['coordinates'][0]
-            order_minimum_no_surcharge = venue_dynamic_data["venue_raw"]["delivery_specs"]["order_minimum_no_surcharge"]
-            base_price = venue_dynamic_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["base_price"]
-            print(base_price)
-            distance_ranges = venue_dynamic_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["distance_ranges"]
+            venue_lat = static_home_assignment_api_data['venue_raw']['location']['coordinates'][1]
+            venue_lon = static_home_assignment_api_data['venue_raw']['location']['coordinates'][0]
+            order_minimum_no_surcharge = dynamic_home_assignment_data["venue_raw"]["delivery_specs"]["order_minimum_no_surcharge"]
+            base_price = dynamic_home_assignment_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["base_price"]
+            distance_ranges = dynamic_home_assignment_data["venue_raw"]["delivery_specs"]["delivery_pricing"]["distance_ranges"]
             
         except KeyError as e:
             return jsonify({"error": f"Missing key in API data: {str(e)}"}), 400
